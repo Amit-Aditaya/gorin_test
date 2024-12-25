@@ -6,7 +6,7 @@ import 'package:gorin_test/core/widgets/scaffolds/app_scaffold.dart';
 import 'package:gorin_test/core/widgets/textfields/primary_textfeild.dart';
 import 'package:gorin_test/core/widgets/texts/emphasis_text.dart';
 import 'package:gorin_test/core/widgets/texts/info_text.dart';
-import 'package:gorin_test/presentation/providers/auth_provider.dart';
+import 'package:gorin_test/presentation/providers/app_auth_provider.dart';
 import 'package:gorin_test/presentation/screens/home/home_screen.dart';
 import 'package:gorin_test/presentation/screens/login/sign_up_screen.dart';
 import 'package:gorin_test/presentation/widgets/login_button.dart';

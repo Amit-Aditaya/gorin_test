@@ -1,7 +1,9 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gorin_test/core/widgets/scaffolds/app_scaffold.dart';
-import 'package:gorin_test/presentation/providers/auth_provider.dart';
+import 'package:gorin_test/presentation/providers/app_auth_provider.dart';
 import 'package:gorin_test/presentation/providers/user_provider.dart';
 import 'package:gorin_test/presentation/screens/login/login_screen.dart';
 import 'package:gorin_test/presentation/widgets/user_card.dart';
@@ -55,7 +57,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     itemBuilder: (context, index) {
                       final user = userProvider.users[index];
                       return UserCard(
-                          imageString: 'https://picsum.photos/id/116/200/300',
+                          imageString:
+                              'https://picsum.photos/id/${Random().nextInt(300)}/200/300',
                           title: user.name);
                     }),
               );

@@ -4,8 +4,14 @@ import 'package:flutter/material.dart';
 
 class AppAuthProvider with ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-
+  bool _isLoggedIn = false;
   bool get isLoggedIn => _auth.currentUser != null;
+
+  Future<bool> checkLoginStatus() async {
+    _isLoggedIn = FirebaseAuth.instance.currentUser != null;
+    //  / notifyListeners();
+    return _isLoggedIn;
+  }
 
   Future<void> login(String email, String password) async {
     await _auth.signInWithEmailAndPassword(email: email, password: password);
