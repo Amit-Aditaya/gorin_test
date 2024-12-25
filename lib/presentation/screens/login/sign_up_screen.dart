@@ -1,10 +1,12 @@
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gorin_test/core/theme/app_colors.dart';
 import 'package:gorin_test/core/utils/validator.dart';
 import 'package:gorin_test/core/widgets/scaffolds/app_scaffold.dart';
+import 'package:gorin_test/core/widgets/snackbars/app_snackbar.dart';
 import 'package:gorin_test/core/widgets/textfields/primary_textfeild.dart';
 import 'package:gorin_test/core/widgets/texts/emphasis_text.dart';
 import 'package:gorin_test/core/widgets/texts/info_text.dart';
@@ -31,6 +33,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   File? profilePhoto;
+
+  bool isObscure = true;
 
   @override
   Widget build(BuildContext context) {
@@ -89,11 +93,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
               height: .02.sh,
             ),
             PrimaryTextfield(
+                isObscure: isObscure,
                 hintText: 'Password',
                 validator: Validators.validatePassword,
-                suffixIcon: const Icon(
-                  Icons.visibility,
-                  color: Color(AppColors.grey),
+                suffixIcon: Icon(
+                  isObscure ? Icons.visibility : Icons.visibility_off,
+                  color: const Color(AppColors.grey),
                 ),
                 controller: _passwordController),
             SizedBox(
@@ -121,15 +126,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   builder: (context) => const HomeScreen()));
                         });
                       } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                              content: Text('Please select a profile photo')),
-                        );
+                        AppSnackBar.show(context,
+                            message: "Please select a profile picture");
                       }
-                    } catch (e) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text(e.toString())),
-                      );
+                    } on FirebaseAuthException catch (e) {
+                      AppSnackBar.show(context,
+                          message: e.message ?? "An unexpected error occurred");
                     }
                   }
                 }),

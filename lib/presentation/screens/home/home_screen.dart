@@ -58,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       final user = userProvider.users[index];
                       return UserCard(
                           imageString:
-                              'https://picsum.photos/id/${Random().nextInt(300)}/200/300',
+                              'https://picsum.photos/id/${Random().nextInt(100)}/200/300',
                           title: user.name);
                     }),
               );

@@ -1,8 +1,10 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gorin_test/core/theme/app_colors.dart';
 import 'package:gorin_test/core/utils/validator.dart';
 import 'package:gorin_test/core/widgets/scaffolds/app_scaffold.dart';
+import 'package:gorin_test/core/widgets/snackbars/app_snackbar.dart';
 import 'package:gorin_test/core/widgets/textfields/primary_textfeild.dart';
 import 'package:gorin_test/core/widgets/texts/emphasis_text.dart';
 import 'package:gorin_test/core/widgets/texts/info_text.dart';
@@ -12,12 +14,21 @@ import 'package:gorin_test/presentation/screens/login/sign_up_screen.dart';
 import 'package:gorin_test/presentation/widgets/login_button.dart';
 import 'package:provider/provider.dart';
 
-class LoginScreen extends StatelessWidget {
-  LoginScreen({super.key});
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   final TextEditingController _emailController = TextEditingController();
+
   final TextEditingController _passwordController = TextEditingController();
+
+  bool isObscure = true;
 
   @override
   Widget build(BuildContext context) {
@@ -44,12 +55,19 @@ class LoginScreen extends StatelessWidget {
               height: 0.025.sh,
             ),
             PrimaryTextfield(
+              isObscure: isObscure,
               controller: _passwordController,
               validator: Validators.validatePassword,
               hintText: 'password',
-              suffixIcon: const Icon(
-                Icons.visibility,
-                color: Color(AppColors.grey),
+              suffixIcon: InkWell(
+                onTap: () {
+                  isObscure = !isObscure;
+                  setState(() {});
+                },
+                child: Icon(
+                  isObscure ? Icons.visibility : Icons.visibility_off,
+                  color: const Color(AppColors.grey),
+                ),
               ),
             ),
             SizedBox(
@@ -67,14 +85,13 @@ class LoginScreen extends StatelessWidget {
                     try {
                       await authProvider.login(
                           _emailController.text, _passwordController.text);
-
                       Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                               builder: (context) => const HomeScreen()));
-                    } catch (e) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Login Failed: $e')));
+                    } on FirebaseException catch (e) {
+                      AppSnackBar.show(context,
+                          message: 'Login Failed: ${e.message}');
                     }
                   }
                 }),

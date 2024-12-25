@@ -8,12 +8,14 @@ class PrimaryTextfield extends StatelessWidget {
   final String? Function(String?)? validator;
   final TextEditingController controller;
   Widget? suffixIcon;
+  bool? isObscure;
 
   PrimaryTextfield(
       {super.key,
       required this.hintText,
       required this.validator,
       required this.controller,
+      this.isObscure,
       this.suffixIcon});
 
   @override
@@ -33,6 +35,7 @@ class PrimaryTextfield extends StatelessWidget {
         ],
       ),
       child: TextFormField(
+        obscureText: isObscure == true ? true : false,
         controller: controller,
         validator: validator,
         decoration: InputDecoration(

@@ -8,7 +8,7 @@ class AppAuthProvider with ChangeNotifier {
   bool get isLoggedIn => _auth.currentUser != null;
 
   Future<bool> checkLoginStatus() async {
-    _isLoggedIn = FirebaseAuth.instance.currentUser != null;
+    _isLoggedIn = _auth.currentUser != null;
     //  / notifyListeners();
     return _isLoggedIn;
   }
