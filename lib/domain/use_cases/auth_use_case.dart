@@ -8,6 +8,14 @@ class AuthUseCase {
 
   AuthUseCase({required this.userRepository});
 
+  Future<void> loginUser(String email, String password) async {
+    await FirebaseDataSource().login(email, password);
+  }
+
+  Future<void> logout() async {
+    FirebaseDataSource().logout();
+  }
+
   Future<void> registerUser(String name, String email, String password,
       String profilePhotoPath) async {
     // Register the user

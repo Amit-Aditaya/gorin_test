@@ -31,7 +31,9 @@ class MyApp extends StatelessWidget {
         return MultiProvider(
           providers: [
             ChangeNotifierProvider(
-              create: (context) => AppAuthProvider(),
+              create: (context) => AppAuthProvider(AuthUseCase(
+                  userRepository: UserRepositoryImpl(
+                      firebaseDataSource: FirebaseDataSource()))),
             ),
             ChangeNotifierProvider(
               create: (context) => UserProvider(
@@ -83,7 +85,9 @@ class AuthWrapper extends StatelessWidget {
             ),
           );
         } else {
-          return snapshot.data == true ? const HomeScreen() : LoginScreen();
+          return snapshot.data == true
+              ? const HomeScreen()
+              : const LoginScreen();
         }
       },
     );
