@@ -67,6 +67,7 @@ class LoginScreen extends StatelessWidget {
                     try {
                       await authProvider.login(
                           _emailController.text, _passwordController.text);
+
                       Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
