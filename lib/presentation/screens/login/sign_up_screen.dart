@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gorin_test/core/theme/app_colors.dart';
@@ -7,15 +9,25 @@ import 'package:gorin_test/core/widgets/textfields/primary_textfeild.dart';
 import 'package:gorin_test/core/widgets/texts/emphasis_text.dart';
 import 'package:gorin_test/core/widgets/texts/info_text.dart';
 import 'package:gorin_test/presentation/widgets/login_button.dart';
+import 'package:image_picker/image_picker.dart';
 
-class SignUpScreen extends StatelessWidget {
-  SignUpScreen({super.key});
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({super.key});
 
+  @override
+  State<SignUpScreen> createState() => _SignUpScreenState();
+}
+
+class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _nameController = TextEditingController();
+
   final TextEditingController _emailController = TextEditingController();
+
   final TextEditingController _passwordController = TextEditingController();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  File? profilePhoto;
 
   @override
   Widget build(BuildContext context) {
@@ -32,19 +44,30 @@ class SignUpScreen extends StatelessWidget {
             SizedBox(
               height: .025.sh,
             ),
-            Container(
-              width: .125.sh,
-              height: .125.sh,
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                color: Color(AppColors.darkBlueColor), // Facebook blue color
-              ),
-              child: Icon(
-                Icons.person,
-                color: Colors.white,
-                size: .075.sh,
-              ),
-            ),
+            profilePhoto != null
+                ? CircleAvatar(
+                    radius: 50,
+                    backgroundImage: FileImage(profilePhoto!),
+                  )
+                : InkWell(
+                    onTap: () async {
+                      await pickImage();
+                    },
+                    child: Container(
+                      width: .125.sh,
+                      height: .125.sh,
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Color(
+                            AppColors.darkBlueColor), // Facebook blue color
+                      ),
+                      child: Icon(
+                        Icons.person,
+                        color: Colors.white,
+                        size: .075.sh,
+                      ),
+                    ),
+                  ),
             SizedBox(
               height: .025.sh,
             ),
@@ -90,5 +113,15 @@ class SignUpScreen extends StatelessWidget {
         ),
       ),
     ));
+  }
+
+  Future<void> pickImage() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        profilePhoto = File(pickedFile.path);
+      });
+    }
   }
 }
