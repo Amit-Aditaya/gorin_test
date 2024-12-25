@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gorin_test/core/widgets/scaffolds/app_scaffold.dart';
+import 'package:gorin_test/presentation/widgets/user_card.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -26,15 +27,9 @@ class HomeScreen extends StatelessWidget {
                   },
                   itemCount: 10,
                   itemBuilder: (context, index) {
-                    return ListTile(
-                      leading: CircleAvatar(
-                        radius: .025.sh,
-                        backgroundImage: const NetworkImage(
-                            'https://picsum.photos/id/237/200/300'),
-                      ),
-                      contentPadding: const EdgeInsets.symmetric(horizontal: 0),
-                      title: const Text('John Doe'),
-                    );
+                    return const UserCard(
+                        imageString: 'https://picsum.photos/id/237/200/300',
+                        title: "john doe");
                   }),
             ),
           ],
