@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "77420589669",
+    "project_id": "gorin-753dd",
+    "storage_bucket": "gorin-753dd.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:77420589669:android:c44152e97ecf229dfb4c8c",
+        "android_client_info": {
+          "package_name": "com.example.gorin_test"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZKj8zBVtHR5362mr9sPJLSobTKznu-iY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

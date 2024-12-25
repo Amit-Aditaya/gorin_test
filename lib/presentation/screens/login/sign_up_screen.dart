@@ -8,9 +8,11 @@ import 'package:gorin_test/core/widgets/scaffolds/app_scaffold.dart';
 import 'package:gorin_test/core/widgets/textfields/primary_textfeild.dart';
 import 'package:gorin_test/core/widgets/texts/emphasis_text.dart';
 import 'package:gorin_test/core/widgets/texts/info_text.dart';
+import 'package:gorin_test/presentation/providers/user_provider.dart';
 import 'package:gorin_test/presentation/screens/home/home_screen.dart';
 import 'package:gorin_test/presentation/widgets/login_button.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -81,34 +83,60 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ),
             PrimaryTextfield(
                 hintText: 'Email',
-                validator: Validators.validateFullName,
-                controller: _nameController),
+                validator: Validators.validateEmail,
+                controller: _emailController),
             SizedBox(
               height: .02.sh,
             ),
             PrimaryTextfield(
                 hintText: 'Password',
-                validator: Validators.validateFullName,
+                validator: Validators.validatePassword,
                 suffixIcon: const Icon(
                   Icons.visibility,
                   color: Color(AppColors.grey),
                 ),
-                controller: _nameController),
+                controller: _passwordController),
             SizedBox(
               height: .05.sh,
             ),
             LoginButton(
                 text: "Sign Up",
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const HomeScreen()));
+                onTap: () async {
+                  if (_formKey.currentState!.validate()) {
+                    final userProvider = context.read<UserProvider>();
+
+                    try {
+                      if (profilePhoto != null) {
+                        await userProvider
+                            .registerUser(
+                          _nameController.text,
+                          _emailController.text,
+                          _passwordController.text,
+                          profilePhoto!.path,
+                        )
+                            .then((value) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const HomeScreen()));
+                        });
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                              content: Text('Please select a profile photo')),
+                        );
+                      }
+                    } catch (e) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text(e.toString())),
+                      );
+                    }
+                  }
                 }),
             SizedBox(
               height: .04.sh,
             ),
-            const InfoText(text: 'Already have an accout?'),
+            const InfoText(text: 'Already have an account?'),
             SizedBox(
               height: .01.sh,
             ),

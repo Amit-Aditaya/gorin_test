@@ -33,6 +33,7 @@ class PrimaryTextfield extends StatelessWidget {
         ],
       ),
       child: TextFormField(
+        controller: controller,
         validator: validator,
         decoration: InputDecoration(
           border: InputBorder.none,

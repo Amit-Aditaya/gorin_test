@@ -59,7 +59,7 @@ class LoginScreen extends StatelessWidget {
             LoginButton(
                 text: 'Login',
                 onTap: () {
-                  //      _formKey.currentState!.validate();
+                  //  if (_formKey.currentState!.validate()) {}
                 }),
             SizedBox(
               height: 0.05.sh,
@@ -70,8 +70,10 @@ class LoginScreen extends StatelessWidget {
             ),
             InkWell(
                 onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => SignUpScreen()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const SignUpScreen()));
                 },
                 child: const EmphasisText(text: 'Sign Up'))
           ],
