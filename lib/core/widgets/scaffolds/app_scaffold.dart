@@ -5,8 +5,9 @@ import 'package:gorin_test/core/theme/app_colors.dart';
 class AppScaffold extends StatelessWidget {
   // const AppScaffold({super.key});
   final Widget body;
+  Widget? floatingActionButton;
 
-  const AppScaffold({super.key, required this.body});
+  AppScaffold({super.key, required this.body, this.floatingActionButton});
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +20,7 @@ class AppScaffold extends StatelessWidget {
         width: double.infinity,
         child: body,
       ),
+      floatingActionButton: floatingActionButton,
     );
   }
 }

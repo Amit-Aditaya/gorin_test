@@ -8,6 +8,7 @@ import 'package:gorin_test/core/widgets/scaffolds/app_scaffold.dart';
 import 'package:gorin_test/core/widgets/textfields/primary_textfeild.dart';
 import 'package:gorin_test/core/widgets/texts/emphasis_text.dart';
 import 'package:gorin_test/core/widgets/texts/info_text.dart';
+import 'package:gorin_test/presentation/screens/home/home_screen.dart';
 import 'package:gorin_test/presentation/widgets/login_button.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -96,7 +97,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
             SizedBox(
               height: .05.sh,
             ),
-            LoginButton(text: "Sign Up", onTap: () {}),
+            LoginButton(
+                text: "Sign Up",
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const HomeScreen()));
+                }),
             SizedBox(
               height: .04.sh,
             ),
