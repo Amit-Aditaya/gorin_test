@@ -9,4 +9,5 @@ abstract class UserRepository {
   Future<List<UserModel>> fetchAllUsers();
   Future<String> uploadProfilePhoto(String userId, File file);
   Future<User?> registerUser(String email, String password);
+  Future<User?> loginUser(String email, String password);
 }

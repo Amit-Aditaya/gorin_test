@@ -39,4 +39,10 @@ class UserRepositoryImpl implements UserRepository {
   Future<User?> registerUser(String email, String password) async {
     return await firebaseDataSource.register(email, password);
   }
+
+  @override
+  Future<User?> loginUser(String email, String password) async {
+    await firebaseDataSource.login(email, password);
+    return null;
+  }
 }

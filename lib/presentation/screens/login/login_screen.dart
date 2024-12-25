@@ -6,8 +6,11 @@ import 'package:gorin_test/core/widgets/scaffolds/app_scaffold.dart';
 import 'package:gorin_test/core/widgets/textfields/primary_textfeild.dart';
 import 'package:gorin_test/core/widgets/texts/emphasis_text.dart';
 import 'package:gorin_test/core/widgets/texts/info_text.dart';
+import 'package:gorin_test/presentation/providers/auth_provider.dart';
+import 'package:gorin_test/presentation/screens/home/home_screen.dart';
 import 'package:gorin_test/presentation/screens/login/sign_up_screen.dart';
 import 'package:gorin_test/presentation/widgets/login_button.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
@@ -58,8 +61,21 @@ class LoginScreen extends StatelessWidget {
             ),
             LoginButton(
                 text: 'Login',
-                onTap: () {
-                  //  if (_formKey.currentState!.validate()) {}
+                onTap: () async {
+                  if (_formKey.currentState!.validate()) {
+                    final authProvider = context.read<AppAuthProvider>();
+                    try {
+                      await authProvider.login(
+                          _emailController.text, _passwordController.text);
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const HomeScreen()));
+                    } catch (e) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('Login Failed: $e')));
+                    }
+                  }
                 }),
             SizedBox(
               height: 0.05.sh,
