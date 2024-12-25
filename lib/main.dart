@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gorin_test/core/theme/app_colors.dart';
-import 'package:gorin_test/presentation/screens/login_screen.dart';
+import 'package:gorin_test/presentation/screens/login/login_screen.dart';
 
 void main() {
   runApp(const MyApp());

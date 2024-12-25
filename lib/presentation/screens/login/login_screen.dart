@@ -6,6 +6,7 @@ import 'package:gorin_test/core/widgets/scaffolds/app_scaffold.dart';
 import 'package:gorin_test/core/widgets/textfields/primary_textfeild.dart';
 import 'package:gorin_test/core/widgets/texts/emphasis_text.dart';
 import 'package:gorin_test/core/widgets/texts/info_text.dart';
+import 'package:gorin_test/presentation/screens/login/sign_up_screen.dart';
 import 'package:gorin_test/presentation/widgets/login_button.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -58,7 +59,7 @@ class LoginScreen extends StatelessWidget {
             LoginButton(
                 text: 'Login',
                 onTap: () {
-                  _formKey.currentState!.validate();
+                  //      _formKey.currentState!.validate();
                 }),
             SizedBox(
               height: 0.05.sh,
@@ -67,7 +68,12 @@ class LoginScreen extends StatelessWidget {
             SizedBox(
               height: 0.01.sh,
             ),
-            const EmphasisText(text: 'Sign Up')
+            InkWell(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => SignUpScreen()));
+                },
+                child: const EmphasisText(text: 'Sign Up'))
           ],
         ),
       ),
