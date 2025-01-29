@@ -32,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
             authProvider.logout();
             Navigator.pushReplacement(context,
                 MaterialPageRoute(builder: (context) {
-              return LoginScreen();
+              return const LoginScreen();
             }));
           },
           child: const Icon(Icons.logout),

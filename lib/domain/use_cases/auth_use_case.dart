@@ -9,7 +9,7 @@ class AuthUseCase {
   AuthUseCase({required this.userRepository});
 
   Future<void> loginUser(String email, String password) async {
-    await FirebaseDataSource().login(email, password);
+    await userRepository.loginUser(email, password);
   }
 
   Future<void> logout() async {
@@ -19,7 +19,7 @@ class AuthUseCase {
   Future<void> registerUser(String name, String email, String password,
       String profilePhotoPath) async {
     // Register the user
-    final user = await FirebaseDataSource().register(email, password);
+    final user = await userRepository.registerUser(email, password);
     if (user != null) {
       // Upload profile photo
 
@@ -32,7 +32,7 @@ class AuthUseCase {
         uid: user.uid,
         name: name,
         email: email,
-        profilePhoto: "",
+        profilePhoto: "", // Needs firebase storage
       );
       await userRepository.addUser(newUser);
     }
